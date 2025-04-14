@@ -1,6 +1,14 @@
+import { sql } from 'drizzle-orm';
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
-export const user = sqliteTable('user', {
+export const users = sqliteTable('users', {
 	id: integer('id').primaryKey(),
-	age: integer('age')
+	name: text('name').notNull(),
+	email: text('email').notNull().unique(),
+	createdAt: text('created_at')
+		.notNull()
+		.default(sql`CURRENT_TIMESTAMP`),
+	updatedAt: text('updated_at')
+		.notNull()
+		.default(sql`CURRENT_TIMESTAMP`)
 });
